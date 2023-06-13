@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Inventory</title>
+  <style>
+    /* Reset default margin and padding */
+    body, h1, form {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Set background color and text styles */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* Header styles */
+    h1 {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Form styles */
+    form {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    label,
+    input,
+    textarea,
+    button {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Edit Inventory</h1>
+
+  <form action="/inventories/<%= @inventory.id %>" method="post">
+    <%= csrf_meta_tags %>
+    <%= hidden_field_tag(:_method, :patch) %>
+
+    <label for="inventory_name">Name</label>
+    <input type="text" id="inventory_name" name="inventory[name]" value="<%= @inventory.name %>">
+
+    <label for="inventory_description">Description</label>
+    <textarea id="inventory_description" name="inventory[description]"><%= @inventory.description %></textarea>
+
+    <label for="inventory_quantity">Quantity</label>
+    <input type="number" id="inventory_quantity" name="inventory[quantity]" value="<%= @inventory.quantity %>">
+
+    <button type="submit">Update Inventory</button>
+  </form>
+</body>
+</html>

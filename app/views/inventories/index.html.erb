@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory</title>
+  <style>
+    /* Reset default margin and padding */
+    body, h1, table {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Set background color and text styles */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* Header styles */
+    h1 {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* Table row hover effect */
+    tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* Table cell alignment */
+    .center-align {
+      text-align: center;
+    }
+
+    /* Table cell width */
+    .wide-cell {
+      width: 150px;
+    }
+
+    /* Form styles */
+    .form-container {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .form-container label,
+    .form-container input,
+    .form-container textarea,
+    .form-container button {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .form-container button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: #555;
+    }
+
+    /* Remove underline and blue color from inventory links */
+    table a {
+      text-decoration: none;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Inventory</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th class="center-align wide-cell">Created At</th>
+        <th class="center-align wide-cell">Updated At</th>
+        <th class="center-align">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @inventories.each do |inventory| %>
+        <tr>
+          <td><a href="/inventories/<%= inventory.id %>"><%= inventory.id %></a></td>
+          <td><a href="/inventories/<%= inventory.id %>"><%= inventory.name %></a></td>
+          <td><a href="/inventories/<%= inventory.id %>"><%= inventory.description %></a></td>
+          <td><a href="/inventories/<%= inventory.id %>"><%= inventory.quantity %></a></td>
+          <td class="center-align"><a href="/inventories/<%= inventory.id %>"><%= inventory.created_at %></a></td>
+          <td class="center-align"><a href="/inventories/<%= inventory.id %>"><%= inventory.updated_at %></a></td>
+            <td class="center-align">
+            <a href="/inventories/<%= inventory.id %>/edit">Edit</a>
+            <a href="/inventories/<%= inventory.id %>" data-method="delete">Delete</a>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="form-container">
+    <a href="/inventories/new">New Inventory</a>
+  </div>
+</body>
+</html>

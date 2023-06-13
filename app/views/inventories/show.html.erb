@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Details</title>
+  <style>
+    /* Reset default margin and padding */
+    body, h1, table {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Set background color and text styles */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* Header styles */
+    h1 {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Inventory Details</h1>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <td><%= @inventory.id %></td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td><%= @inventory.name %></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td><%= @inventory.description %></td>
+    </tr>
+    <tr>
+      <th>Quantity</th>
+      <td><%= @inventory.quantity %></td>
+    </tr>
+    <tr>
+      <th>Created At</th>
+      <td><%= @inventory.created_at %></td>
+    </tr>
+    <tr>
+      <th>Updated At</th>
+      <td><%= @inventory.updated_at %></td>
+    </tr>
+  </table>
+</body>
+</html>
