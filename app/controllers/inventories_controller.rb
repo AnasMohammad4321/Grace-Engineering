@@ -25,11 +25,11 @@ class InventoriesController < ApplicationController
     end
   
     def update
-        @inventory = Inventory.find(params[:id])
-        if @inventory.update(inventory_params)
-            redirect_to @inventory, notice: 'Inventory item was successfully updated.'
-        else
-            render :edit
+      @inventory = Inventory.find(params[:id])
+      if @inventory.update(inventory_params)
+        redirect_to @inventory, notice: 'Inventory item was successfully updated.'
+      else
+        render :edit
       end
     end
   
@@ -37,6 +37,31 @@ class InventoriesController < ApplicationController
       @inventory = Inventory.find(params[:id])
       @inventory.destroy
       redirect_to inventories_url, notice: 'Inventory item was successfully deleted.'
+    end
+  
+    def download_csv
+      inventories = Inventory.all
+  
+      respond_to do |format|
+        format.csv do
+          csv_data = CSV.generate(headers: true) do |csv|
+            csv << ['ID', 'Name', 'Description', 'Quantity', 'Created At', 'Updated At']
+  
+            inventories.each do |inventory|
+              csv << [
+                inventory.id,
+                inventory.name,
+                inventory.description,
+                inventory.quantity,
+                inventory.created_at,
+                inventory.updated_at
+              ]
+            end
+          end
+  
+          send_data csv_data, filename: 'inventory.csv', type: 'text/csv'
+        end
+      end
     end
   
     private
