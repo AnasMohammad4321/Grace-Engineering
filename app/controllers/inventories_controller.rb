@@ -17,8 +17,13 @@ class InventoriesController < ApplicationController
     end
   
     def show
-      @inventory = Inventory.find(params[:id])
+      if params[:id] == 'download_csv'
+        redirect_to download_csv_path
+      else
+        @inventory = Inventory.find(params[:id])
+      end
     end
+    
   
     def edit
       @inventory = Inventory.find(params[:id])
@@ -41,28 +46,20 @@ class InventoriesController < ApplicationController
   
     def download_csv
       inventories = Inventory.all
-  
-      respond_to do |format|
-        format.csv do
-          csv_data = CSV.generate(headers: true) do |csv|
-            csv << ['ID', 'Name', 'Description', 'Quantity', 'Created At', 'Updated At']
-  
-            inventories.each do |inventory|
-              csv << [
-                inventory.id,
-                inventory.name,
-                inventory.description,
-                inventory.quantity,
-                inventory.created_at,
-                inventory.updated_at
-              ]
-            end
-          end
-  
-          send_data csv_data, filename: 'inventory.csv', type: 'text/csv'
+      csv_data = CSV.generate do |csv|
+        csv << ['ID', 'Name', 'Description', 'Quantity', 'Created At', 'Updated At']
+        inventories.each do |inventory|
+          csv << [inventory.id, inventory.name, inventory.description, inventory.quantity, inventory.created_at, inventory.updated_at]
         end
       end
+    
+      if params[:id] == 'download_csv'
+        send_data csv_data, filename: 'inventory.csv', type: 'text/csv'
+      else
+        redirect_to inventories_path, notice: 'Invalid request'
+      end
     end
+    
   
     private
   

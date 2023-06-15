@@ -153,8 +153,8 @@
           <td><a href="/inventories/<%= inventory.id %>"><%= inventory.name %></a></td>
           <td><a href="/inventories/<%= inventory.id %>"><%= inventory.description %></a></td>
           <td><a href="/inventories/<%= inventory.id %>"><%= inventory.quantity %></a></td>
-          <td class="center-align"><a href="/inventories/<%= inventory.id %>"><%= inventory.created_at %></a></td>
-          <td class="center-align"><a href="/inventories/<%= inventory.id %>"><%= inventory.updated_at %></a></td>
+          <td class="center-align"><a href="/inventories/<%= inventory.id %>"><%= inventory.created_at.strftime("%d %B %Y %I:%M%p") %></a></td>
+          <td class="center-align"><a href="/inventories/<%= inventory.id %>"><%= inventory.updated_at.strftime("%d %B %Y %I:%M%p") %></a></td>
           <td class="center-align">
             <a href="/inventories/<%= inventory.id %>/edit">Edit</a>
             <a href="#" class="delete-link" data-inventory-id="<%= inventory.id %>">Delete</a>
@@ -168,9 +168,31 @@
     <a href="/inventories/new">New Inventory</a>
   </div>
 
-  <div class="form-container">
-    <a href="/inventories/new">Download as CSV</a>
-  </div>
+<div class="form-container">
+  <a href="/inventories/download_csv" id="download-csv">Download as CSV</a>
+</div>
+<script>
+  document.getElementById('download-csv').addEventListener('click', function(event) {
+    event.preventDefault();
+    downloadInventoryAsCSV();
+  });
+
+  function downloadInventoryAsCSV() {
+    fetch('/inventories/download_csv')
+      .then(response => response.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'inventory.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+      })
+      .catch(error => {
+        console.error('Error downloading inventory as CSV:', error);
+      });
+  }
+</script>
 
 
   <div class="confirmation-dialog">

@@ -22,6 +22,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_100323) do
     t.float "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    # I want to use EST instead of UTC
+    t.datetime "created_at", null: false, default: -> { 'CURRENT_TIMESTAMP' }
+    t.datetime "updated_at", null: false, default: -> { 'CURRENT_TIMESTAMP' }
   end
 
   create_table "orders", force: :cascade do |t|
