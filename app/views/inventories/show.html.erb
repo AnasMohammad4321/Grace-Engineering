@@ -68,12 +68,14 @@
     </tr>
     <tr>
       <th>Created At</th>
-      <td><%= @inventory.created_at %></td>
+      <td><%= @inventory.created_at.strftime("%d %B %Y %I:%M%p") %></td>
     </tr>
     <tr>
       <th>Updated At</th>
-      <td><%= @inventory.updated_at %></td>
+      <td><%= @inventory.updated_at.strftime("%d %B %Y %I:%M%p") %></td>
     </tr>
   </table>
+
+    <a href="/inventories">Back to Inventory</a>
 </body>
 </html>
