@@ -50,7 +50,3 @@ The Inventory Management System is a web application built with Ruby on Rails th
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
