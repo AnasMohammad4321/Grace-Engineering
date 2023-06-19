@@ -1,4 +1,7 @@
+require 'csv' 
+
 class InventoriesController < ApplicationController
+  http_basic_authenticate_with name: "Anas", password: "1234", except: [:index, :show]
     def index
       @inventories = Inventory.all
     end
@@ -8,6 +11,7 @@ class InventoriesController < ApplicationController
     end
   
     def create
+      http_basic_authenticate_with name: "Anas", password: "1234"
       @inventory = Inventory.new(inventory_params)
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory item was successfully created.'
@@ -41,38 +45,18 @@ class InventoriesController < ApplicationController
       redirect_to inventories_url, notice: 'Inventory item was successfully deleted.'
     end
   
-    # def download_csv
-    #   inventories = Inventory.all
-    #   csv_data = CSV.generate do |csv|
-    #     csv << ['ID', 'Name', 'Description', 'Quantity', 'Created At', 'Updated At']
-    #     inventories.each do |inventory|
-    #       csv << [inventory.id, inventory.name, inventory.description, inventory.quantity, inventory.created_at, inventory.updated_at]
-    #     end
-    #   end
-    
-    #   if params[:id] == 'download_csv'
-    #     send_data csv_data, filename: 'inventory.csv', type: 'text/csv'
-    #   else
-    #     redirect_to inventories_path, notice: 'Invalid request'
-    #   end
-    # end
-    
-    # def existing
-    #   @inventory = Inventory.new
-    # end
+    def download_csv
+      inventories = Inventory.all
+      csv_data = CSV.generate do |csv|
+        csv << ["ID", "Name", "Description", "Quantity", "Created At", "Updated At"]
+        inventories.each do |inventory|
+          csv << [inventory.id, inventory.name, inventory.description, inventory.quantity, inventory.created_at, inventory.updated_at]
+        end
+      end
   
-    # def update_existing
-    #   @inventory = Inventory.find(params[:inventory_id])
-    #   quantity = params[:quantity].to_i
-    #   @inventory.quantity += quantity
-    #   if @inventory.save
-    #     redirect_to inventories_path, notice: 'Inventory updated successfully.'
-    #   else
-    #     flash.now[:error] = 'Failed to update inventory.'
-    #     render :existing
-    #   end
-    # end
-
+      send_data csv_data, filename: "inventory_data.csv"
+    end
+    
     def add_existing
     end
   
@@ -81,5 +65,14 @@ class InventoriesController < ApplicationController
     def inventory_params
       params.require(:inventory).permit(:name, :quantity)
     end
+
+    def authenticate
+      unless action_name == 'index' || action_name == 'show'
+        authenticate_or_request_with_http_basic do |username, password|
+          username == "Anas" && password == "1234"
+        end
+      end
+    end
+
   end
   

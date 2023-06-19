@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   get '/inventories/add_existing', to: 'inventories#add_existing', as: 'add_existing_inventories'
   patch '/inventories/update', to: 'inventories#update', as: 'update_inventory'
-  
-  resources :inventories
+  get '/inventories/download_csv', to: 'inventories#download_csv', as: 'download_csv'
+  get "/production/download_csv", to: "productions#download_csv", as: "download_production_csv"
+
+  resources :inventories do
+    collection do
+      get '/inventories/download_csv', to: 'inventories#download_csv', as: 'download_csv'
+    end
+  end
   resources :productions
   
   root "homes#index"

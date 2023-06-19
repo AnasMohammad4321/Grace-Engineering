@@ -1,4 +1,5 @@
 class ProductionsController < ApplicationController
+  http_basic_authenticate_with name: "Anas", password: "1234", except: [:index, :show]
     def index
         @productions = Production.all
     end
@@ -41,6 +42,17 @@ class ProductionsController < ApplicationController
         end
     end
 
+    def download_csv
+        productions = Production.all
+        csv_data = CSV.generate do |csv|
+          csv << ["ID", "Inventory ID", "Quantity Used", "Production Date", "Production Notes", "Created At", "Updated At"]
+          productions.each do |production|
+            csv << [production.id, production.inventory_id, production.quantity_used, production.production_date, production.production_notes, production.created_at, production.updated_at]
+          end
+        end
+        
+        send_data csv_data, filename: "production_data.csv"
+    end
 
   private
 
