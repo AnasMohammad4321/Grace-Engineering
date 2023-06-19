@@ -49,6 +49,34 @@
       background-color: #555;
     }
 
+      /* Cancel button styles */
+    .cancel-button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .cancel-button:hover {
+      background-color: #555;
+    }
+
+    /* Footer styles */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f0f0f0;
+      color: #222;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -66,8 +94,26 @@
       <%= f.number_field :quantity %>
 
       <input type="submit" value="Create Inventory Item">
+      <a class="cancel-button" href="/inventories" onclick="navigateToInventory(event, href)">Cancel</a>
     <% end %>
   </div>
+
+  <footer>
+    &copy;2023 Grace Engineering.
+  </footer>
+  <script>
+    // No changes made to the JavaScript code
+      function navigateToInventory(event, href) {
+        event.preventDefault(); // Prevent the default link behavior
+
+        // Set the URL of the inventory page
+        var inventoryUrl = href;
+
+        // Reload the page by navigating to the inventory URL
+        window.location.href = inventoryUrl;
+      }
+
+  </script>
 
 </body>
 </html>

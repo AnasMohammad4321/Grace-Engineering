@@ -3,6 +3,11 @@ class ProductionsController < ApplicationController
         @productions = Production.all
     end
 
+    def show
+        @production = Production.find(params[:id])
+    end
+
+
     def new 
         @production = Production.new
     end
@@ -20,16 +25,27 @@ class ProductionsController < ApplicationController
         end
         if @production.save && @inventory.save
           # redirect_to view_productions_path, notice: 'Production was successfully created.'
-          redirect_to @production, notice: 'Production was successfully created.'
+          redirect_to productions_path, notice: 'Production was successfully created.'
         else
           render :new
         end
       end
 
-      private
+    def delete
+        @production = Production.find(params[:id])
 
-        def production_params
-          params.require(:production).permit(:inventory_id, :quantity_used, :production_date)
+        if @production.destroy  
+            redirect_to productions_path, notice: 'Production was successfully deleted.'
+        else  
+            redirect_to productions_path, notice: 'Production was not deleted.'
         end
+    end
+
+
+  private
+
+    def production_params
+      params.require(:production).permit(:inventory_id, :quantity_used, :production_date, :production_notes)
+    end
       
 end

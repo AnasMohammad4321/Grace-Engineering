@@ -34,9 +34,8 @@
   }
 
 
-
     /* Table styles */
-    table {
+  table {
       width: 80%;
       border-collapse: collapse;
       margin-top: 20px;
@@ -305,6 +304,17 @@
         .catch((error) => {
           console.error('Error deleting inventory:', error);
         });
+    }
+
+    // No changes made to the JavaScript code
+    function navigateToInventory(event, href) {
+      event.preventDefault(); // Prevent the default link behavior
+
+      // Set the URL of the inventory page
+      var inventoryUrl = href;
+
+      // Reload the page by navigating to the inventory URL
+      window.location.href = inventoryUrl;
     }
   </script>
 

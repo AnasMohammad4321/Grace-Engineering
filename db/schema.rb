@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_100323) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_101144) do
   create_table "homes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_100323) do
     t.date "production_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "production_notes", default: ""
     t.index ["inventory_id"], name: "index_productions_on_inventory_id"
   end
 
