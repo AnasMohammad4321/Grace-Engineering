@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :productions
   
   root "homes#index"
+  get '/view', to: 'homes#index', as: 'view'
   get '/view/inventories', to: 'inventories#index', as: 'view_inventories'
   get '/view/productions', to: 'productions#index', as: 'view_productions'
 

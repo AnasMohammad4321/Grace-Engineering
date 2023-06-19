@@ -4,6 +4,9 @@ class Production < ApplicationRecord
     # Custom validation to check quantity_used against inventory quantity
     validate :validate_quantity_used
 
+    # # should have an inventory_id
+    # validates :inventory_id, presence: true
+
     private
   
     def validate_quantity_used
