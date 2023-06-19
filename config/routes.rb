@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/view', to: 'homes#index', as: 'view'
   get '/view/inventories', to: 'inventories#index', as: 'view_inventories'
   get '/view/productions', to: 'productions#index', as: 'view_productions'
+  get 'inventories/add_existing', to: 'inventories#add_existing', as: 'add_existing_inventories'
+
 
   # get '/inventories/download_csv', to: 'inventories#download_csv', as: 'download_csv'
   # delete '/inventories/:id', to: 'inventories#destroy' 

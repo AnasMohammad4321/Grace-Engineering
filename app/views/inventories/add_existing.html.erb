@@ -1,0 +1,17 @@
+<!-- app/views/inventories/add_existing.erb.html -->
+
+<h2>Add Existing Inventory</h2>
+
+<%= form_tag(add_existing_inventories_path, method: :post) do %>
+  <div class="field">
+    <%= label_tag :inventory_id, "Select Inventory Item:" %>
+    <%= select_tag :inventory_id, options_from_collection_for_select(Inventory.all, :id, :name), prompt: "Select an inventory item" %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :quantity, "Enter Quantity:" %>
+    <%= number_field_tag :quantity %>
+  </div>
+
+  <%= submit_tag "Add Inventory", class: "add-inventory-button" %>
+<% end %>

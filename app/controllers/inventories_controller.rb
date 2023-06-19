@@ -17,13 +17,8 @@ class InventoriesController < ApplicationController
     end
   
     def show
-      if params[:id] == 'download_csv'
-        redirect_to download_csv_path
-      else
-        @inventory = Inventory.find(params[:id])
-      end
+      @inventory = Inventory.find(params[:id])
     end
-    
   
     def edit
       @inventory = Inventory.find(params[:id])
@@ -75,6 +70,19 @@ class InventoriesController < ApplicationController
     #     render :existing
     #   end
     # end
+
+    def add_existing
+      byebug
+      @inventory = Inventory.find(params[:inventory_id])
+      quantity = params[:quantity].to_i
+      @inventory.quantity += quantity
+      if @inventory.save
+        redirect_to inventories_path, notice: 'Inventory updated successfully.'
+      else
+        flash.now[:error] = 'Failed to update inventory.'
+        render :existing
+      end
+    end
   
     private
   
