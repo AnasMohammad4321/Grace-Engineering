@@ -45,9 +45,11 @@ class ProductionsController < ApplicationController
     def download_csv
         productions = Production.all
         csv_data = CSV.generate do |csv|
-          csv << ["ID", "Inventory ID", "Quantity Used", "Production Date", "Production Notes", "Created At", "Updated At"]
+          csv << ["Production_ID", "Inventory", "Quantity Used", "Production Date", "Production Notes", "Created At", "Updated At"]
           productions.each do |production|
-            csv << [production.id, production.inventory_id, production.quantity_used, production.production_date, production.production_notes, production.created_at, production.updated_at]
+            inventory = Inventory.find(production.inventory_id)
+            name = inventory.name
+            csv << [production.id, name, production.quantity_used, production.production_date, production.production_notes, production.created_at, production.updated_at]
           end
         end
         

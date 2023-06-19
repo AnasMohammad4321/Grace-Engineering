@@ -11,7 +11,6 @@ class InventoriesController < ApplicationController
     end
   
     def create
-      http_basic_authenticate_with name: "Anas", password: "1234"
       @inventory = Inventory.new(inventory_params)
       if @inventory.save
         redirect_to @inventory, notice: 'Inventory item was successfully created.'
@@ -29,7 +28,6 @@ class InventoriesController < ApplicationController
     end
   
     def update
-      debugger
       @inventory = Inventory.find(params[:inventory_id])
       @inventory.quantity += params[:quantity].to_f
       if @inventory.save
