@@ -1,17 +1,120 @@
-<!-- app/views/inventories/add_existing.erb.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Existing Inventory</title>
+  <style>
+    /* Reset default margin and padding */
+    body, form {
+      margin: 0;
+      padding: 0;
+    }
 
-<h2>Add Existing Inventory</h2>
+    /* Set background color and text styles */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
 
-<%= form_tag(add_existing_inventories_path, method: :post) do %>
-  <div class="field">
-    <%= label_tag :inventory_id, "Select Inventory Item:" %>
-    <%= select_tag :inventory_id, options_from_collection_for_select(Inventory.all, :id, :name), prompt: "Select an inventory item" %>
+    /* Form container styles */
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      margin-top: 50px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form field styles */
+    label, select, input[type="number"] {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+
+    /* Cancel button styles */
+    .cancel-button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .cancel-button:hover {
+      background-color: #555;
+    }
+
+    /* Footer styles */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f0f0f0;
+      color: #222;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Add Existing Inventory</h2>
+
+      <%= form_tag(update_inventory_path, method: :patch) do %>
+        <div class="field">
+          <%= label_tag :inventory_id, "Select Inventory Item:" %>
+          <%= select_tag :inventory_id, options_from_collection_for_select(Inventory.all, :id, :name), prompt: "Select an inventory item" %>
+        </div>
+
+        <div class="field">
+          <%= label_tag :quantity, "Enter Quantity:" %>
+          <%= number_field_tag :quantity %>
+        </div>
+        <%= hidden_field_tag :id, :inventory_id %> 
+       <%= submit_tag "Add Inventory", class: "add-inventory-button" %>
+       <a class="cancel-button" href="/inventories" onclick="navigateToInventory(event, href)">Cancel</a>
+
+      <% end %>
+
   </div>
 
-  <div class="field">
-    <%= label_tag :quantity, "Enter Quantity:" %>
-    <%= number_field_tag :quantity %>
-  </div>
+  <footer>
+    &copy;2023 Grace Engineering.
+  </footer>
+  <script>
+    // No changes made to the JavaScript code
+    function navigateToInventory(event, href) {
+      event.preventDefault(); // Prevent the default link behavior
 
-  <%= submit_tag "Add Inventory", class: "add-inventory-button" %>
-<% end %>
+      // Set the URL of the inventory page
+      var inventoryUrl = href;
+
+      // Reload the page by navigating to the inventory URL
+      window.location.href = inventoryUrl;
+    }
+  </script>
+</body>
+</html>

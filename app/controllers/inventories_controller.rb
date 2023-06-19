@@ -25,8 +25,10 @@ class InventoriesController < ApplicationController
     end
   
     def update
-      @inventory = Inventory.find(params[:id])
-      if @inventory.update(inventory_params)
+      debugger
+      @inventory = Inventory.find(params[:inventory_id])
+      @inventory.quantity += params[:quantity].to_f
+      if @inventory.save
         redirect_to @inventory, notice: 'Inventory item was successfully updated.'
       else
         render :edit
@@ -72,22 +74,12 @@ class InventoriesController < ApplicationController
     # end
 
     def add_existing
-      byebug
-      @inventory = Inventory.find(params[:inventory_id])
-      quantity = params[:quantity].to_i
-      @inventory.quantity += quantity
-      if @inventory.save
-        redirect_to inventories_path, notice: 'Inventory updated successfully.'
-      else
-        flash.now[:error] = 'Failed to update inventory.'
-        render :existing
-      end
     end
   
     private
   
     def inventory_params
-      params.require(:inventory).permit(:name, :description, :quantity)
+      params.require(:inventory).permit(:name, :quantity)
     end
   end
   
