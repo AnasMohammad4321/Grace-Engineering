@@ -1,0 +1,16 @@
+<!-- existing.html.erb -->
+<h1>Update Existing Inventory</h1>
+
+<%= form_with(url: existing_inventories_path, method: :post) do |form| %>
+  <div class="form-group">
+    <%= form.label :inventory_id, 'Select Inventory' %>
+    <%= form.select :inventory_id, options_for_select(Inventory.all.map { |inventory| [inventory.name, inventory.id] }), prompt: 'Select Inventory' %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :quantity, 'Enter Quantity' %>
+    <%= form.number_field :quantity, class: 'form-control' %>
+  </div>
+
+  <%= form.submit 'Update Inventory', class: 'btn btn-primary' %>
+<% end %>

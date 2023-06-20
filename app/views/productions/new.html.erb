@@ -1,0 +1,147 @@
+<!-- app/views/productions/new.html.erb -->
+
+<style>
+  /* Reset default margin and padding */
+  body, h1, form, .field {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Set background color and text styles */
+  body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+
+  /* Header styles */
+  h2 {
+    color: #333;
+    text-align: left;
+  }
+
+  /* Form styles */
+  form {
+    margin: 0 auto;
+    width: 500px;
+    background-color: #fff;
+    margin-top: 50px;
+    padding: 20px;
+  }
+
+  /* Form field styles */
+  .field {
+    margin-bottom: 10px;
+  }
+
+  /* Form label styles */
+  label {
+    display: block;
+    font-weight: bold;
+  }
+
+  /* Submit button styles */
+  .create-production-button {
+    display: block;
+    margin-top: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+
+  /* Cancel button styles */
+  .cancel-button {
+    margin-top: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+
+    /* Footer styles */
+  footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f0f0f0;
+      color: #222;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+  /* Error message styles */
+  .error {
+    color: red;
+    margin-top: 5px;
+  }
+</style>
+
+<%= form_with(model: @production, url: productions_path) do |form| %>
+  <%= form.hidden_field :inventory_id %>
+  <h2>New Production</h2>
+  
+  <div class="field">
+    <%= form.label :inventory_id %>
+    <%= form.collection_select :inventory_id, Inventory.all, :id, :name, prompt: "Select an inventory" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity_used %>
+    <%= form.number_field :quantity_used %>
+    <% if @production.errors[:quantity_used].any? %>
+      <p class="error">
+        <%= @production.errors[:quantity_used].first %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :production_date %>
+    <%= form.date_field :production_date %>
+  </div>
+
+  <!-- New field for Production Notes -->
+  <div class="field">
+    <%= form.label :production_notes %>
+    <%= form.text_area :production_notes, rows: 4 %>
+    <% if @production.errors[:production_notes].any? %>
+      <p class="error">
+        <%= @production.errors[:production_notes].first %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Production", class: "create-production-button", formnovalidate: true %>
+    <br>
+    <%= link_to "Cancel", productions_path, class: "cancel-button" %>
+  </div>
+
+    <script>
+    // No changes made to the JavaScript code
+      function navigateToInventory(event, href) {
+        event.preventDefault(); // Prevent the default link behavior
+
+        // Set the URL of the inventory page
+        var inventoryUrl = href;
+
+        // Reload the page by navigating to the inventory URL
+        window.location.href = inventoryUrl;
+      }
+
+  </script>
+
+  <footer>
+    &copy;2023 Grace Engineering.
+  </footer>
+
+
+
+<% end %>

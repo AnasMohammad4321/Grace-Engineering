@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Inventory Item</title>
+  <style>
+    /* Reset default margin and padding */
+    body, form {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Set background color and text styles */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* Form container styles */
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      margin-top: 50px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form field styles */
+    label, input[type="text"], textarea {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    input[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #555;
+    }
+
+      /* Cancel button styles */
+    .cancel-button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .cancel-button:hover {
+      background-color: #555;
+    }
+
+    /* Footer styles */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f0f0f0;
+      color: #222;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>New Inventory Item</h2>
+
+    <%= form_for @inventory do |f| %>
+      <label for="name">Name</label>
+      <%= f.text_field :name %>
+
+      <label for="description">Description</label>
+      <%= f.text_area :description, rows: 4 %>
+
+      <label for="quantity">Quantity</label>
+      <%= f.number_field :quantity %>
+
+      <input type="submit" value="Create Inventory Item">
+      <a class="cancel-button" href="/inventories" onclick="navigateToInventory(event, href)">Cancel</a>
+    <% end %>
+  </div>
+
+  <footer>
+    &copy;2023 Grace Engineering.
+  </footer>
+  <script>
+    // No changes made to the JavaScript code
+      function navigateToInventory(event, href) {
+        event.preventDefault(); // Prevent the default link behavior
+
+        // Set the URL of the inventory page
+        var inventoryUrl = href;
+
+        // Reload the page by navigating to the inventory URL
+        window.location.href = inventoryUrl;
+      }
+
+  </script>
+
+</body>
+</html>
