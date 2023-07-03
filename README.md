@@ -17,7 +17,7 @@ The Inventory Management System is a web application built with Ruby on Rails th
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/inventory-management.git
+   git clone git@github.com:AnasMohammad4321/Grace-Engineering.git
 
 2. Install dependencies:
 
